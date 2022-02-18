@@ -1,0 +1,309 @@
+.article {
+  width: 1000px;
+  position: relative;
+
+  .article_title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+
+    h2 {
+      margin: 10px 0;
+    }
+    p {
+      font-size: 14px;
+      color: #333333;
+      span {
+        margin-right: 10px;
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+
+    >div {
+      margin: 10px 0;
+      i {
+        font-size: 14px;
+        margin-right: 5px;
+        color: #6c63ff;
+
+        &:first-child {
+          color: #333333;
+        }
+      }
+    }
+  }
+
+  .article_content {
+    margin-top: 1px;
+    background-color: white;
+    min-height: 200px;
+    width: calc(100% - 40px);
+  }
+
+  .comment_commit {
+    margin-bottom: 20px;
+    min-height: 200px;
+    background-color: white;
+    padding: 20px 20px 10px 20px;
+
+    .title {
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #f0eeee;
+      color: #555555;
+      position: relative;
+
+      &::after {
+        display: block;
+        content: '';
+        width: 100px;
+        height: 1px;
+        background-color: #333333;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+    }
+
+    .body {
+      width: calc(100% - 40px);
+      padding: 20px;
+      height: 105px;
+      background-color: #f5f5f5;
+      border-radius: 5px;
+      box-shadow: inset 2px 2px 6px rgb(0 0 0 / 8%);
+      position: relative;
+
+      textarea {
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        border: none;
+        resize: none;
+
+        &:focus {
+          border: none;
+          outline: none;
+        }
+      }
+
+      > button {
+        width: 100px;
+        height: 40px;
+        border-radius: 10px;
+        background-color: #6c63ff;
+        color: white;
+        border: none;
+        cursor: pointer;
+
+        position: absolute;
+        right: 20px;
+        bottom: 10px;
+      }
+    }
+
+    .footer {
+      font-size: 14px;
+      color: #555555;
+      margin-top: 10px;
+
+      p>span {
+        color: #6c63ff;
+      }
+    }
+  }
+
+  .comment_list {
+    margin-top: 20px;
+    ul {
+      list-style: none;
+    }
+
+    >ul {
+      >li {
+        width: 100%;
+        display: flex;
+        margin-bottom: 15px;
+
+        >.left {
+          width: 70px;
+          img {
+            width: 50px;
+            border-radius: 5px;
+          }
+        }
+        >.right {
+          width: calc(100% - 70px);
+          background-color: white;
+          border-radius: 5px;
+          position: relative;
+          box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+          padding: 10px 20px;
+
+          &::after {
+            display: block;
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 15px;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-right-color: white;      //小三角
+          }
+
+          .comment_content {
+            margin: 5px 0;
+
+            img {
+              height: 120px;
+              border-radius: 5px;
+              margin: 5px 10px 0 0;
+              box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            }
+          }
+
+          .comment_info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+
+            >div>span {
+              margin-right: 20px;
+              cursor: pointer;
+            }
+          }
+
+          .delete {
+            color: red;
+            cursor: pointer;
+          }
+
+          .sub_comment_list {
+            margin-top: 10px;
+            display: none;
+
+            > div {
+              margin-bottom: 10px;
+              display: flex;
+              .left {
+                width: 60px;
+                img {
+                  width: 40px;
+                  border-radius: 5px;
+                }
+              }
+              .right {
+                width: calc(100% - 60px);
+
+                .sub_comment_content {
+                  margin: 5px 0;
+                }
+
+                .sub_comment_info {
+                  display: flex;
+                  justify-content: space-between;
+                  font-size: 14px;
+                  >div>span {
+                    margin-right: 18px;
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
+
+            .sub_comment_text {
+              width: 100%;
+              margin-bottom: 10px;
+              position:relative;
+              background-color: #f5f5f5;
+              border-radius: 5px;
+              box-shadow: inset 2px 2px 6px rgb(0 0 0 / 8%);
+
+              > textarea {
+                resize: none;
+                width: 100%;
+                height: 100px;
+                padding: 10px;
+                border-radius: 10px;
+                background-color: transparent;
+                border: none;
+
+                &:focus {
+                  border: none;
+                  outline: none;
+                }
+              }
+
+              button {
+                position: absolute;
+                right: 20px;
+                bottom: 10px;
+                width: 100px;
+                height: 40px;
+                border-radius: 10px;
+                background-color: #6c63ff;
+                color: white;
+                border: none;
+                cursor: pointer;
+              }
+            }
+
+          }
+        }
+      }
+    }
+  }
+
+  .slider_bar {
+    width: calc(200px - 40px);
+    height: 100px;
+    background-color: white;
+    border-radius: 5px;
+    position: absolute;
+    left: -215px;
+    top: 0;
+    padding: 20px;
+
+    .title {
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    .body {
+      font-size: 14px;
+      p {
+        transition: all 0.3s;
+        cursor: pointer;
+        height: 30px;
+        line-height: 30px;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &:hover {
+          color: white;
+          background-color: #808595;
+        }
+
+        &.H1 {
+
+        }
+        &.H2 {
+          padding-left: 10px;
+        }
+        &.H3 {
+          padding-left: 15px;
+        }
+        &.H4 {
+          padding-left: 20px;
+        }
+      }
+    }
+  }
+}

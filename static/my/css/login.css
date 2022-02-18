@@ -1,0 +1,124 @@
+body {
+  width: 100%;
+  height: 100vh;
+}
+body #app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  width: 600px;
+  min-height: 600px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+main .top {
+  padding: 40px 20px 20px 20px;
+}
+main .top h2 {
+  display: flex;
+  justify-content: center;
+}
+main .top .title {
+  text-align: center;
+}
+main .top .title a {
+  color: #808595;
+}
+main .top .title a.active {
+  color: #6c63ff;
+}
+main .top .login_forms {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+main .top .login_forms > input {
+  margin-bottom: 20px;
+  border: none;
+  outline: none;
+  height: 40px;
+  border-radius: 5px;
+  padding-left: 20px;
+  transition: all 0.3s;
+}
+main .top .login_forms > input:focus {
+  border: 1px solid #6c63ff;
+}
+main .top .login_forms input.sign_input {
+  margin-bottom: 15px;
+}
+main .top .login_forms > button {
+  border: none;
+  height: 40px;
+  cursor: pointer;
+  color: whitesmoke;
+  background-color: #6c63ff;
+  border-radius: 5px;
+}
+main .top .other_login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+main .top .other_login > p {
+  font-size: 14px;
+  color: #808595;
+}
+main .top .other_login::before {
+  position: absolute;
+  content: "";
+  display: block;
+  width: 200px;
+  height: 1px;
+  background-color: #808595;
+  left: 0;
+  top: 8px;
+}
+main .top .other_login::after {
+  position: absolute;
+  content: "";
+  display: block;
+  width: 200px;
+  height: 1px;
+  background-color: #808595;
+  right: 0;
+  top: 8px;
+}
+main .top .other_login > div {
+  margin-top: 20px;
+}
+main .top .other_login > div a {
+  width: 60px;
+  margin-right: 10px;
+  color: #808595;
+}
+main .top .other_login > div a:last-child {
+  margin-right: 0;
+}
+main .bottom img {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 270px;
+}
+main .bottom .bottom_img2 {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 235px;
+}
+
+/*# sourceMappingURL=login.css.map */

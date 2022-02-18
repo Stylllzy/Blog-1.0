@@ -1,0 +1,124 @@
+{% extends 'backend/add_article.html' %}
+
+{% block btn %}
+<el-button plain type="primary"
+           id="edit_info"
+
+           data_title="{{ article_obj.title }}"
+           data_author="{{ article_obj.author }}"
+           data_abstract="{{ article_obj.abstract }}"
+           data_pwd="{{ article_obj.pwd }}"
+           data_category="{{ article_obj.category }}"
+           data_tags="{{ tags }}"
+           data_cover_id="{{ article_obj.cover.nid }}"
+           data_cover_url="{{ article_obj.cover.url.url }}"
+           data_recommend="{{ article_obj.recommend }}"
+
+           @click="add_drawer=true">更改文章信息</el-button>
+{% endblock %}
+
+{% block drawer %}
+    <el-drawer
+      class="editor_body"
+      title="编辑文章"
+      :visible.sync="add_drawer"
+      direction="rtl"
+      :before-close="add_handleClose">
+
+        <div class="add_el_drawer_content">
+            <el-collapse v-model="add_activeNames" accordion>
+
+                <el-collapse-item class="title_author" title="标题 & 作者" name="1">
+                    <el-input class="title_" v-model="title" placeholder="请输入标题"></el-input>
+                    <el-input class="author" v-model="author" placeholder="请输入作者"></el-input>
+                </el-collapse-item>
+
+                <el-collapse-item class="abstract" title="文章简介" name="2">
+                    <el-input
+                      type="textarea"
+                      :rows="2"
+                      resize="none"
+                      placeholder="请输入简介内容"
+                      v-model="abstract">
+                    </el-input>
+                </el-collapse-item>
+
+                <el-collapse-item class="category_tags" title="标签 & 分类" name="3">
+{#                    分类选择#}
+                    <el-select class="category" v-model="category_id" placeholder="请选择分类">
+                            {% for category in category_list %}
+                                <el-option
+                                    label="{{ category.1 }}"
+                                    value="{{ category.0 }}">
+                                </el-option>
+                            {% endfor %}
+                    </el-select>
+{#                    标签多选#}
+                    <el-select class="tags" v-model="tags"
+                               filterable
+                               allow-create
+                               default-first-option
+                               multiple
+                               placeholder="请选择标签">
+                        {% for tag in tag_list %}
+                            <el-option
+                              label="{{ tag.title }}"
+                              value="{{ tag.nid }}">
+                            </el-option>
+                        {% endfor %}
+                    </el-select>
+
+                </el-collapse-item>
+
+                <el-collapse-item class="article_cover" title="封面" name="4">
+
+                    <div class="left">
+                        <img id="cover_img" data="{{ c_l }}" src="/media/article_img/12.jpg" alt="">
+                    </div>
+                    <div class="right">
+                        <el-select @change="select_cover" v-model="cover_id" placeholder="请选择封面">
+                            {% for cover in cover_list %}
+                                <el-option
+                                    label="{{ cover.url.url }}"
+                                    value="{{ cover.nid }}">
+                                </el-option>
+                            {% endfor %}
+                        </el-option>
+                    </el-select>
+                    </div>
+                </el-collapse-item>
+
+                <el-collapse-item class="can_choose" title="可选设置" name="5">
+                    <div>
+                        <el-switch
+                          v-model="recommend"
+                          active-color="#13ce66"
+                          active-text="推荐"
+                          inactive-text="">
+                        </el-switch>
+                    </div>
+                    <div>
+                        <el-switch
+                          v-model="pwd_active"
+                          active-color="#13ce66"
+                          active-text="加密"
+                          inactive-text="">
+                        </el-switch>
+                    </div>
+                    <div>
+                        <el-input v-show="pwd_active" v-model="pwd" placeholder="请输入文章密码"></el-input>
+                    </div>
+                </el-collapse-item>
+
+            </el-collapse>
+
+            <div class="article_btn">
+                <el-button type="success" @click="edit_article('{{ article_obj.nid }}')">确认更改</el-button>
+            </div>
+        </div>
+    </el-drawer>
+{% endblock %}
+
+{% block textarea %}
+ <textarea style="display: none;">{{ article_obj.content }}</textarea>
+{% endblock %}

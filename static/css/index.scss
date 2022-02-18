@@ -1,0 +1,370 @@
+// 公共样式
+.card {
+
+  .title {
+    display: flex;
+    justify-content: space-between; //两端对齐
+    align-items: center;  //垂直居中
+    border-bottom: 1px solid #f5f5f5; //下边框
+    padding: 20px 20px 10px 20px;
+    background-color: white;
+    border-radius: 5px 5px 0 0;
+  }
+  h3 {
+    font-size: 20px;
+  }
+  > div {
+    a {
+      font-size: 14px;
+    }
+  }
+  .body {
+    padding: 10px 20px 20px 20px;
+    background-color: white;
+    border-radius: 0 0 5px 5px;
+  }
+}
+
+#app {
+  width: 100%;
+
+  .main {
+    width: 1200px;
+    min-width: 200px;
+    //background-color: #549ce3;
+    display: flex;
+    justify-content: space-between;
+    >div>div {
+      margin-bottom: 20px;
+    }
+
+    .left {
+      width: 69%;
+
+      .selected_articles>.title {
+        .switch_art_category {
+          span {
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+            &:hover {
+              color: #ff9800;
+            }
+            &[active] {
+              color: #ff9800;
+            }
+          }
+        }
+      }
+
+      .selected_articles>.body {
+        padding: 0 20px;
+        >ul {
+          display: flex;
+          flex-wrap: wrap;
+
+          >li {
+            width: 50%;
+            box-sizing: border-box;
+            display: flex;
+            padding: 10px 0;
+
+            &:nth-child(1),&:nth-child(3),&:nth-child(5) {
+              border-right: 1px solid #f0eeee;
+              padding: 10px 10px 10px 0;
+            }
+            &:nth-child(2),&:nth-child(4),&:nth-child(6) {
+              padding: 10px 0 5px 10px;
+
+            }
+            &:nth-child(1),&:nth-child(2),&:nth-child(3),&:nth-child(4) {
+              border-bottom: 1px solid #f0eeee;
+            }
+
+            .left {
+              width: 40%;
+
+              >div {
+                width: 100%;
+                overflow: hidden;
+              }
+
+              img {
+                width: 100%;
+                height: 100%;
+                transition: all 0.3s;
+                &:hover {
+                  transform: scale(1.3);
+                }
+              }
+            }
+            .right {
+              width: 60%;
+              box-sizing: border-box;
+              padding-left: 10px;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+
+              h3 {
+                font-size: 15px;
+              }
+              p {
+                overflow: hidden;
+                -webkit-box-orient: vertical;
+                white-space: nowrap;  //多行状态不换行
+                text-overflow: ellipsis;
+              }
+              span {
+                font-size: 14px;
+                color: #555;
+              }
+            }
+          }
+        }
+      }
+
+      .all_articles>.body {
+        background-color: transparent;
+        padding: 0;
+
+        > ul {
+          width: 100%;
+
+          > li {
+            width: 100%;
+            display: flex;
+            background-color: white;
+            margin-bottom: 20px;
+            border-radius: 5px;
+
+            &:first-child {
+              border-radius: 0 0 5px 5px;
+              .left {
+                padding: 10px 10px 20px 20px;
+              }
+              .right {
+                padding: 0 15px 10px 10px;
+              }
+            }
+
+            .left {
+              width: 30%;
+              box-sizing: border-box;
+              padding: 20px 10px 20px 20px;
+
+              >div {
+                width: 100%;
+                overflow: hidden;
+                border-radius: 6px;
+              }
+
+              img {
+                width: 100%;
+                height: 100%;
+                transition: all 0.3s;
+                border-radius: 5px;
+                &:hover {
+                  transform: scale(1.3);
+                }
+              }
+            }
+            .right {
+              width: 70%;
+              padding: 10px 15px 10px 10px;
+              position: relative;
+
+              > h2 {
+                margin-bottom: 15px;
+                padding: 3px 0 5px 0;
+                a {
+                  font-size: 20px;
+                  font-weight: bold
+                }
+              }
+
+              p {   //详情文本截断
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin-bottom: 35px;
+              }
+
+              .article_info {
+                display: flex;
+                font-size: 14px;
+                color: #555;
+                >span {
+                  margin-right: 10px;
+
+                  i {
+                    margin-right: 5px;
+                  }
+                }
+              }
+
+              > a {
+                width: 90px;
+                height: 35px;
+                position: absolute;
+                right: 35px;
+                bottom: 22px;
+                background-color: #4db874;
+                border: none;
+                border-radius: 5px;
+                color: white;
+                font-weight: 500;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+            }
+          }
+        }
+      }
+    }
+    .right {
+      width: 30%;
+      a {
+        cursor: pointer;
+      }
+
+      .advertisement > .body {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .he {
+          img {
+            width: 40%;
+          }
+        }
+        .she {
+          img {
+            width: 55%;
+          }
+        }
+
+        img {
+          //width: 40%;
+          margin-top: 10px;
+        }
+
+        @keyframes move_box {
+            0% {
+              left: 0;
+              top: 0;
+            }
+            25% {
+              left: calc(100% - 20px);
+              top: 0;
+            }
+            50% {
+              left: calc(100% - 20px);
+              top: calc(100% - 20px);
+            }
+            75% {
+              left: 0;
+              top: calc(100% - 20px);
+            }
+            100%{
+              left: 0;
+              top: 0;
+            }
+          }
+        &::before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 9;
+            display: block;
+            width: 20px;
+            height: 20px;
+            content: '❤';
+            //background-color: #ff9800;
+            -webkit-animation-name: move_box;
+            animation-name: move_box;
+            -webkit-animation-duration: 5s;
+            animation-duration: 5s;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+          }
+      }
+
+      .tag_cloud > .body {
+        position: relative;
+
+        ul {
+          display: flex;
+          flex-wrap: wrap;  // 允许换行
+          margin-top: 10px;
+          //position: relative;
+
+          @keyframes move_box {
+            0% {
+              left: 0;
+              top: 0;
+            }
+            25% {
+              left: calc(100% - 20px);
+              top: 0;
+            }
+            50% {
+              left: calc(100% - 20px);
+              top: calc(100% - 20px);
+            }
+            75% {
+              left: 0;
+              top: calc(100% - 20px);
+            }
+            100%{
+              left: 0;
+              top: 0;
+            }
+          }
+
+          &::before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            width: 20px;
+            height: 20px;
+            content: '';
+            background-color: #ff9800;
+
+            -webkit-animation-name: move_box;
+            animation-name: move_box;
+            -webkit-animation-duration: 5s;
+            animation-duration: 5s;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+          }
+
+          li {
+            display: flex;  // 垂直居中三段论
+            justify-content: center;
+            align-items: center;
+            width: 33%;
+            height: 40px;
+
+            &:nth-child(6n+1),&:nth-child(6n+2),&:nth-child(6n+3) {
+              background-color: #f5f5f5;
+            }
+            &:nth-child(3n+1),&:nth-child(3n+2) {
+              border-right: 1px solid #f0eeee;
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+}
+
+

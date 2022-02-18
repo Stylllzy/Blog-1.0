@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="/static/elementui/theme-chalk/index.css">
+    <link rel="stylesheet" href="/static/css/backend/backend_base.css">
+    {% block css %}
+
+    {% endblock %}
+</head>
+<body>
+
+<div id="app">
+    <aside>
+<div class="slogan">
+    <img src="/static/my/img/backend/logo.svg" alt="">
+</div>
+
+    <ul>
+        <li><a href="/">首页</a></li>
+        <li><a href="/backend">个人中心</a></li>
+        <li><a href="">修改密码</a></li>
+        <li><a href="">修改头像</a></li>
+        {% if request.user.is_superuser %}
+             <li><a href="/backend/add_article">添加文章</a></li>
+             <li><a href="/admin" target="_blank">后台管理</a></li>
+        {% endif %}
+        <li><a href="/logout">注销退出</a></li>
+    </ul>
+</aside>
+
+    <main>
+    {% csrf_token %}
+        {% block main %}
+            {#        个人信息栏#}
+            <div class="user_info">
+            <div class="left">
+                <img src="/static/my/img/article/boy.svg" alt="">
+            </div>
+            <div class="right">
+                <div class="item">
+                    <span><b>用户名:</b></span>
+                </div>
+                <div class="item">
+                    <span><b>注册时间:</b></span>
+                </div>
+                <div class="item">
+                    <span><b>上次登录时间:</b></span>
+                </div>
+                <div class="item">
+                    <span><b>文章数:</b></span>
+                </div>
+                <div class="item">
+                    <span><b>邮箱:</b></span>
+                </div>
+                <div class="item">
+                    <span><b>电话:</b></span>
+                </div>
+            </div>
+        </div>
+{#        按钮栏#}
+            <div class="actions">
+            <div class="item">
+                <el-button plain>完善信息</el-button>
+            </div>
+            <div class="item">
+                <el-button type="info" plain>修改密码</el-button>
+            </div>
+            <div class="item">
+                <el-button type="primary" plain>发布文章</el-button>
+            </div>
+        </div>
+
+            {% block content %}
+                {#        收藏文章栏#}
+                <div class="collection_article_all">
+            <p>收藏文章</p>
+            <div class="article_list">
+                <div class="item">
+                    <div class="left">
+                        <img src="http://127.0.0.1:8000/media/article_img/16.jpg" alt="">
+                    </div>
+                    <div class="right">
+                        <h4>python</h4>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="left">
+                        <img src="http://127.0.0.1:8000/media/article_img/16.jpg" alt="">
+                    </div>
+                    <div class="right">
+                        <h4>python</h4>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="left">
+                        <img src="http://127.0.0.1:8000/media/article_img/16.jpg" alt="">
+                    </div>
+                    <div class="right">
+                        <h4>python</h4>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+            {% endblock %}
+
+        {% endblock %}
+    </main>
+</div>
+
+
+<script src="/static/axios/axios.min.js"></script>
+<script src="/static/vue/vue.js"></script>
+<script src="/static/elementui/index.js"></script>
+
+{% block js %}
+
+{% endblock %}
+<script>
+    // 请求中间件
+    axios.interceptors.request.use(request => {
+        if (request.method !== 'get') {
+            let csrftoken = document.querySelector('input[name="csrfmiddlewaretoken"]').value
+            request.headers['X-CSRFToken'] = csrftoken
+        }
+        return request
+    })
+    // 响应中间件
+    axios.interceptors.response.use(response => {
+        return response.data
+    })
+
+    new Vue({
+        el: '#app',
+        data: {
+            // 是否展开侧边栏
+            add_drawer: false,
+            // 默认展开
+            add_activeNames: '1',
+            // 文章标题
+            title: '',
+            // 作者
+            author: '',
+            // 文章简介
+            abstract: '',
+            // 分类id
+            //category_id: '',
+            // 选择的标签
+            tags: [],
+            // 是否推荐
+            recommend: true,
+            // 是否加密
+            pwd_active: false,
+            // 加密密码
+            pwd: '',
+            // 封面id
+            cover_id: ''
+        },
+        created() {
+            let img = document.getElementById("cover_img")
+            let path = location.pathname
+            let index = path.indexOf('add_article')
+            if (index !== -1) {
+                // 添加文章初始化
+                let cover_list = eval(img.getAttribute('data'))
+                let item = cover_list[Math.floor(Math.random() * cover_list.length)]
+                img.setAttribute('src', item.url)
+                this.cover_id = item.nid.toString()
+            } else {
+                // 编辑文章
+                this.init_edit_article(img)
+            }
+
+        },
+        methods: {
+
+            add_handleClose(done) {
+                // 添加文章侧边抽屉关闭之前的函数
+                done()
+            },
+
+            // 添加和编辑公共方法
+            add_edit_article() {
+                let data = {
+                    title: this.title,
+                    author: this.author,
+                    cover_id: this.cover_id,
+                    pwd: this.pwd,
+                    recommend: this.recommend,
+                    tags: this.tags,
+                    category: this.category_id,
+                    abstract: this.abstract,
+                    content: editor.querySelector('.editormd-markdown-textarea').value
+                }
+                return data
+            },
+
+            // 添加和编辑的公共 axios 回调
+            add_edit_callback(res) {
+                // 判断是否添加成功
+                if (res.code) {
+                    this.$message.error(res.msg)
+                    return
+                }
+                this.$message.success(res.msg)
+                setTimeout(() => {
+                    location.href = `/article/${res.data}/`
+                }, 500)
+            },
+
+            add_article() {
+                // 添加文章的函数
+                let data = this.add_edit_article()
+
+                axios.post('/api/article/', data).then(res => {
+                    this.add_edit_callback(res)
+                })
+            },
+            // 选择封面
+            select_cover(val) {
+                setTimeout(() => {
+                    let v = document.querySelector('.article_cover input').value
+                    let cover = document.getElementById('cover_img')
+                    cover.src = v
+                },1)
+            },
+            // 编辑文章
+            edit_article(nid) {
+                let data = this.add_edit_article()
+                console.log(data);
+
+                axios.put(`/api/article/${nid}/`, data).then(res => {
+                    this.add_edit_callback(res)
+                })
+            },
+
+            // 编辑文章的初始化
+            init_edit_article(img) {
+                let box = document.getElementById('edit_info')
+                this.title = box.getAttribute('data_title')
+                this.author = box.getAttribute('data_author')
+                this.abstract = box.getAttribute('data_abstract')
+                this.cover_id = box.getAttribute('data_cover_id')
+
+                let recommend = box.getAttribute('data_recommend')
+                this.recommend = recommend === 'True';
+
+                let cover_url = box.getAttribute('data_cover_url')
+                img.setAttribute('src', cover_url)
+
+                let category_id = box.getAttribute('data_category')
+                if (category_id !== 'None') {
+                    this.category_id = category_id
+                }
+
+                this.tags = eval(box.getAttribute('data_tags'))
+
+                let pwd = box.getAttribute('data_pwd')
+                if (pwd !== 'None') {
+                    this.pwd = pwd
+                    this.pwd_active = true
+                }
+            }
+        }
+    })
+</script>
+
+</body>
+</html>
