@@ -18,7 +18,7 @@
 <body>
     <div id="app">
         <link rel="stylesheet" :href="'/static/css/theme/' + theme + '.css'">
-        <nav>
+        <nav class="nav_bg">
             <div class="left">
                 <a href="/">首页</a>
                 <a href="/news">新闻</a>
@@ -41,7 +41,7 @@
                         </span>
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item><a href="/backend">个人中心</a></el-dropdown-item>
-                            <el-dropdown-item><a href="">发布文章</a></el-dropdown-item>
+                            <el-dropdown-item><a href="/backend/add_article">发布文章</a></el-dropdown-item>
                             {% if request.user.is_superuser %}
                                 <el-dropdown-item><a href="/admin">后台管理</a></el-dropdown-item>
                             {% endif %}
@@ -283,13 +283,12 @@
             el: '#app',
             delimiters: ["[[", "]]"], // 更改双大括号规则，避免冲突
             data: {
-                theme: 'light',  // 默认白色主题
-                this_category: 'qianduan',  //精选文章当前所在分类
-
-                info: '站主本人',  //默认自己
+                theme: 'light',             // 默认白色主题
+                this_category: 'qianduan',  // 精选文章当前所在分类
+                info: 'Website builder',            // 默认自己
                 moren: true,
                 change: false,
-                comment_content: ''   // 评论内容
+                comment_content: '',        // 评论内容
             },
             created() {
               this.init_theme()
@@ -319,10 +318,10 @@
                 wbrchange() {
                     this.moren = !this.moren
                     this.change = !this.change
-                    if (this.info === '站主本人') {
+                    if (this.info === 'Website builder') {
                         this.info = '大傻子'
                     } else {
-                        this.info = '站主'
+                        this.info = 'Website builder'
                     }
                 },
 
@@ -385,6 +384,86 @@
                             location.reload()   //页面重载，更新评论
                         },500)
                     })
+                },
+
+                // 删除子评论&根评论
+                delete_sub_comment(nid, aid, root_comment_nid) {
+                    this.$confirm('此操作将永久删除该评论, 是否继续?', '提示', {
+                      confirmButtonText: '确定',
+                      cancelButtonText: '取消',
+                      type: 'warning'
+                    }).then(() => {
+                      axios.delete(`/api/article/comment/${nid}/`, {
+                          data: {
+                              aid,
+                              pid: root_comment_nid
+                          }}).then(res => {
+                        if (res.code) {
+                            this.$message.error(res.msg)
+                            return
+                        }
+                        this.$message.success(res.msg)
+                        setTimeout(() => {
+                            location.reload()   //页面重载，更新评论
+                        },500)
+                    })
+                    }).catch(() => {
+                      this.$message({
+                        type: 'info',
+                        message: '取消删除'
+                      });
+                    });
+                },
+
+                // 评论点赞
+                comment_digg(e, nid) {
+                    axios.post(`/api/comment/digg/${nid}/`).then(res => {
+                        if (res.code) {
+                            this.$message.error(res.msg)
+                            return
+                        }
+                        e.target.innerHTML = `点赞 (${res.data})`
+                        this.$message.success(res.msg)
+                    })
+                },
+
+                // 文章点赞(侧边)
+                article_digg(e, nid) {
+                    let dom = e.target
+                    dom.classList.add('sw')
+
+                    axios.post(`/api/article/digg/${nid}/`).then(res => {
+                        if (res.code) {
+                            this.$message.error(res.msg)
+                            return
+                        }
+                        $(dom).next().text(res.data)
+                        this.$message.success(res.msg)
+                    })
+
+                    let timer = null
+                    clearTimeout(timer)
+                    setTimeout(() => {
+                        dom.classList.remove('sw')
+                    },1000)
+                },
+
+                // 文章收藏(收藏一直显示)
+                article_collect(e, nid) {
+                    let dom = e.target
+                    axios.post(`/api/article/collects/${nid}/`).then(res => {
+                        if (res.code) {
+                            this.$message.error(res.msg)
+                            return
+                        }
+                        this.$message.success(res.msg)
+                        $(dom).next().text(res.data)
+                        if (res.iscollect) {
+                            dom.classList.add('sw')
+                            return
+                        }
+                        dom.classList.remove('sw')
+                    })
                 }
             }
         })
@@ -410,6 +489,23 @@
             menu_img[index].style.opacity = 1
             index ++
         },2000)
+
+
+        // 动态导航条，监听滚动
+        // 点赞&收藏&回到顶部
+        let nav = document.querySelector('.nav_bg')
+        let back = document.querySelector('.article_actions')
+        window.onscroll = function () {
+            let top = document.documentElement.scrollTop
+            if (top >= 350) {
+                nav.classList.add('show')
+                back.classList.add('show_details')
+            } else {
+                nav.classList.remove('show')
+                back.classList.remove('show_details')
+            }
+        }
+
 
     </script>
 

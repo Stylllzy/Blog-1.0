@@ -1,7 +1,7 @@
 nav {
   width: calc(100% - 240px);
   height: 60px;
-  background-color: transparent;
+  /*background-color: transparent;*/
   display: flex;
   align-items: center;
   padding: 0 120px;
@@ -9,7 +9,22 @@ nav {
   z-index: 100;
   top: 0;
   left: 0;
+  transition: all 0.3s;
 }
+nav.show {
+  background-color: #f5f5f5;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+nav.show a {
+  color: #333333;
+}
+nav.show .el-dropdown {
+  color: #333333;
+}
+nav.show .right .el-dropdown span {
+  color: #333333;
+}
+
 nav .left {
   width: 60%;
 }

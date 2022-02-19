@@ -24,6 +24,20 @@
             </div>
         </div>
 
+        <div class="article_actions show_details">
+            <div class="item">
+                <i class="fas fa-thumbs-up" @click="article_digg($event, '{{ article.nid }}')"></i>
+                <span>{{ article.digg_count }}</span>
+            </div>
+            <div class="item">
+                <i class="fas fa-star" @click="article_collect($event, '{{ article.nid }}')"></i>
+                <span>{{ article.collects_count }}</span>
+            </div>
+            <div class="item">
+                <i class="fa fa-angle-double-up"></i>
+            </div>
+        </div>
+
         <div class="article_title">
             <h2>{{ article.title }}
                 {% if request.user.is_superuser %}
@@ -81,17 +95,22 @@
                     <div class="comment_info">
                         <span>{{ comment.create_time }}</span>
                         <div>
-                            <span>点赞 ({{ comment.digg_count }})</span>
+                            <span @click="comment_digg('{{ comment.nid }}')">点赞 ({{ comment.digg_count }})</span>
                             <span @click="show_sub_comment($event, '{{ comment.user.username }}', '{{ comment.nid }}')">
                                 回复 ({{ comment.comment_count }})
                             </span>
-                            <span class="delete">删除</span>
+                            {% if comment.user == request.user or request.user.is_superuser %}
+                                <span class="delete"
+                                  @click="delete_sub_comment('{{ comment.nid }}', '{{ article.nid }}', null)">删除
+                                </span>
+                            {% endif %}
+
                         </div>
                     </div>
                     <div class="sub_comment_list">
                         {% for sub_comment in comment.sub_comment %}
                             <div class="sub_comment_item">
-                                <div class="left" c>
+                                <div class="left">
                                     <img src="{{ sub_comment.user.avatar.url.url }}" alt="">
                                 </div>
 
@@ -103,11 +122,16 @@
                                     <div class="sub_comment_info">
                                         <span>{{ sub_comment.create_time }}</span>
                                         <div>
-                                            <span>点赞 ({{ sub_comment.digg_count }})</span>
+                                            <span @click="comment_digg('{{ sub_comment.nid }}')">点赞 ({{ sub_comment.digg_count }})</span>
                                             <span @click="sub_comment_set_placeholder($event, '{{ sub_comment.user.username }}', '{{ sub_comment.nid }}')">
                                                 回复
                                             </span>
-                                            <span class="delete">删除</span>
+                                            {% if sub_comment.user == request.user or request.user.is_superuser %}
+                                                <span class="delete"
+                                                  @click="delete_sub_comment('{{ sub_comment.nid }}', '{{ article.nid }}', '{{ comment.nid }}')">删除
+                                                </span>
+                                            {% endif %}
+
                                         </div>
                                     </div>
                                 </div>

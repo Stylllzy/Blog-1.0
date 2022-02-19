@@ -10,8 +10,8 @@ import json
 # 主页
 def index(request):
     article_list = Articles.objects.filter(status=1).order_by('change_date')
-    qianduan_list = Articles.objects.filter(category=0)[:6]
-    houduan_list = Articles.objects.filter(category=1)[:6]
+    qianduan_list = Articles.objects.filter(category=1)[:6]
+    houduan_list = Articles.objects.filter(category=2)[:6]
     return render(request, 'index.html', locals())
 
 # 新闻
