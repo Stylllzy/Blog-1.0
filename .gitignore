@@ -1,0 +1,10 @@
+# ignore
+.idea/                  # 过滤.idea文件夹
+*.ipynb                 # 过滤所有以.ipynb为后缀的文件
+__pycache__/            # 过滤__pycache__文件夹
+.ipynb_checkpoints/     # 过滤.ipynb_checkpoints文件夹
+*.tsv                   # 过滤所以以.tsv为后缀的文件
+
+# tmp ignore
+log/          # 以log命名的文件夹将不被push上传
+bak/          # 以bak命名的文件夹将不被push上传
