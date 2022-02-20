@@ -13,28 +13,40 @@
 
 {% block main %}
 
-    <div class="article">
-        <div class="slider_bar">
+    <div class="slider_bar" ref="slider">
             <div class="title">
-
+                <span>[[ slider_text ]]</span>
+                <el-switch
+                  v-model="is_ShowSlider"
+                  active-color="#13ce66"
+                  inactive-color="#ff4949"
+                  @change="sliderChange">
+                </el-switch>
             </div>
             <div class="body">
-                <p class="H1"></p>
-                <p class="H2"></p>
+               <p :tagName="item.tagName"
+                  v-for="(item, index) in slider_list"
+                  :key="index"
+                  @click="go_to_content(item.pos, $event)">
+                   [[ item.c ]]
+               </p>
             </div>
         </div>
 
-        <div class="article_actions show_details">
+    <div class="article">
+
+        <div class="article_actions">
             <div class="item">
                 <i class="fas fa-thumbs-up" @click="article_digg($event, '{{ article.nid }}')"></i>
                 <span>{{ article.digg_count }}</span>
             </div>
             <div class="item">
-                <i class="fas fa-star" @click="article_collect($event, '{{ article.nid }}')"></i>
+                <i class="fas fa-star {{ article|is_user_collect:request }}"
+                   @click="article_collect($event, '{{ article.nid }}')"></i>
                 <span>{{ article.collects_count }}</span>
             </div>
-            <div class="item">
-                <i class="fa fa-angle-double-up"></i>
+            <div class="item" title="回到顶部">
+                <i class="fa fa-angle-double-up" @click="backToTop"></i>
             </div>
         </div>
 
@@ -95,7 +107,7 @@
                     <div class="comment_info">
                         <span>{{ comment.create_time }}</span>
                         <div>
-                            <span @click="comment_digg('{{ comment.nid }}')">点赞 ({{ comment.digg_count }})</span>
+                            <span @click="comment_digg($event, '{{ comment.nid }}')">点赞 ({{ comment.digg_count }})</span>
                             <span @click="show_sub_comment($event, '{{ comment.user.username }}', '{{ comment.nid }}')">
                                 回复 ({{ comment.comment_count }})
                             </span>
@@ -122,7 +134,7 @@
                                     <div class="sub_comment_info">
                                         <span>{{ sub_comment.create_time }}</span>
                                         <div>
-                                            <span @click="comment_digg('{{ sub_comment.nid }}')">点赞 ({{ sub_comment.digg_count }})</span>
+                                            <span @click="comment_digg($event, '{{ sub_comment.nid }}')">点赞 ({{ sub_comment.digg_count }})</span>
                                             <span @click="sub_comment_set_placeholder($event, '{{ sub_comment.user.username }}', '{{ sub_comment.nid }}')">
                                                 回复
                                             </span>

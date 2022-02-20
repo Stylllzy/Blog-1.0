@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Blog</title>
+    <link rel="shortcut icon"  href="/static/my/img/favicon.svg" >
     {% block css %}
         <link rel="stylesheet" href="/static/css/index.css">
     {% endblock %}
@@ -21,7 +22,7 @@
         <nav class="nav_bg">
             <div class="left">
                 <a href="/">首页</a>
-                <a href="/news">新闻</a>
+                <a href="https://weibo.com/login.php">新闻</a>
                 <a href="">心情</a>
                 <a href="">关于</a>
                 <a href="">网站导航</a>
@@ -116,7 +117,7 @@
                                </div>
                            </div>
                            <div class="body">
-                               内容区域
+                               内容区域(暂未开发)
                            </div>
                        </div>
                        <div class="all_articles card">
@@ -202,7 +203,7 @@
                                <h3>站点信息</h3>
                            </div>
                            <div class="body">
-                               内容区域
+                               内容区域(暂未开发)
                            </div>
                        </div>
                        <div class="opinion card">
@@ -210,7 +211,7 @@
                                <h3>意见反馈</h3>
                            </div>
                            <div class="body">
-                               内容区域
+                               内容区域(暂未开发)
                            </div>
                        </div>
                    </div>
@@ -231,7 +232,7 @@
                 <p class="ga">
                     <a href="https://beian.miit.gov.cn">
                         <img src="/static/my/img/footer/c.svg" alt="">
-                        <i>zzy个人博客 | 湘ICP备2022000887号</i>
+                        <i>zzy个人博客 | 湘ICP备2022000887号-1</i>
                     </a>
                 </p>
             </div>
@@ -289,9 +290,22 @@
                 moren: true,
                 change: false,
                 comment_content: '',        // 评论内容
+                is_ShowSlider: false,       // 悬浮目录开关
+                slider_list: [],            //
+                slider_text: '显示目录',
             },
             created() {
-              this.init_theme()
+                this.init_theme()
+
+                let path = location.pathname
+                if (path.indexOf('article') !== -1) {
+                    this.init_slider()
+                }
+
+
+                setTimeout(() => {
+                    this.get_slider()
+                },1000)
             },
             methods: {
                 // 初始化主题
@@ -464,6 +478,77 @@
                         }
                         dom.classList.remove('sw')
                     })
+                },
+
+                // 回到顶部
+                backToTop() {
+                    $('html, body').animate({
+                        scrollTop: 0
+                    },1000)
+                },
+
+                init_slider() {
+                  let flag = localStorage.getItem('is_ShowSlider')
+                  if (flag) {
+                      flag = eval(flag)
+                      if (flag) {
+                          this.is_ShowSlider = true
+                          this.$nextTick(() => {
+                              this.sliderChange(true)
+                          })
+                      }
+                      return
+                  }
+                  this.is_ShowSlider = false
+                },
+
+                // 悬浮目录开关
+                sliderChange(val) {
+                    let dom = this.$refs.slider
+                    localStorage.setItem('is_ShowSlider', val)
+
+                    if (val) {
+                        dom.classList.add('show_catalog')
+                        this.slider_text = '关闭目录'
+                        return
+                    }
+                    dom.classList.remove('show_catalog')
+                    this.slider_text = '显示目录'
+                },
+
+                // 悬浮目录内容
+                get_slider() {
+                    let content = $('#article_content')
+                    let list = []
+                    let h_list = content.children('h1, h2, h3, h4')
+                    for (let i = 0; i < h_list.length; i++) {
+                        let c = h_list[i].innerText
+                        let tagName = h_list[i].tagName
+                        let tagId = h_list[i].id
+                        let ele = {
+                            tagName,
+                            c,
+                            pos: '#' + tagId
+                        }
+                        list.push(ele)
+                    }
+                    list.push({
+                        tagName: 'H1',
+                        c: '评论',
+                        pos: '.comment_commit'
+                    })
+                    this.slider_list = list
+                },
+
+                // 点击目录到相应内容
+                go_to_content(selector, e) {
+                    $('.slider_bar .body>p').css('color', '')
+
+                    e.target.style.color = '#6c63ff'
+                    let box = $(selector)
+                    let pos = box.offset()
+                    pos.top = pos.top - 80
+                    $('html, body').animate({ scrollTop: pos.top }, 500)
                 }
             }
         })
@@ -493,17 +578,38 @@
 
         // 动态导航条，监听滚动
         // 点赞&收藏&回到顶部
+        // 悬浮目录
         let nav = document.querySelector('.nav_bg')
         let back = document.querySelector('.article_actions')
+
+        let path = location.pathname
+        if (path.indexOf('article') === -1) {
+
+        } else {
+
+        }
+        let slider = document.querySelector('.slider_bar')
+        let top1 = 0
+        top1 = $(slider).offset() - 80
+
         window.onscroll = function () {
             let top = document.documentElement.scrollTop
-            if (top >= 350) {
+            if (top >= 400) {
                 nav.classList.add('show')
                 back.classList.add('show_details')
             } else {
                 nav.classList.remove('show')
                 back.classList.remove('show_details')
             }
+
+            if (slider) {
+                if(top >= top1) {
+                    slider.classList.add('fixed')
+                } else {
+                    slider.classList.remove('fixed')
+            }
+            }
+
         }
 
 

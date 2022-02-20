@@ -1,5 +1,5 @@
 .article {
-  width: 1000px;
+  width: calc(100% - 250px);
   position: relative;
 }
 .article .article_title {
@@ -223,25 +223,55 @@
   border: none;
   cursor: pointer;
 }
-.article .slider_bar {
-  width: 160px;
-  height: 100px;
-  background-color: white;
+
+main {
+  position: relative;
+  justify-content: initial;
+}
+
+.slider_bar {
+  width: 210px;
   border-radius: 5px;
   position: absolute;
-  left: -215px;
-  top: 0;
-  padding: 20px;
+  right: 20px;
+  top: 20px;
 }
-.article .slider_bar .title {
-  font-size: 20px;
-  font-weight: 500;
-  margin-bottom: 5px;
+.show_catalog {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2)
 }
-.article .slider_bar .body {
-  font-size: 14px;
+.slider_bar .title {
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.article .slider_bar .body p {
+.show_catalog .title {
+  box-shadow: none;
+  border-radius: 5px 5px 0 0;
+  border-bottom: 1px solid #f0eeee;
+}
+.slider_bar .title span {
+  margin-right: 10px;
+}
+.slider_bar .body {
+  opacity: 0;
+  padding: 10px 20px 20px 20px;
+  background-color: white;
+  visibility: hidden;
+  transition: all 0.3s;
+  height: 0;
+}
+.show_catalog .body {
+  border-radius: 0 0 5px 5px;
+  opacity: 1;
+  visibility: visible;
+  min-height: 200px;
+  background-color: white;
+}
+.slider_bar .body p {
   transition: all 0.3s;
   cursor: pointer;
   height: 30px;
@@ -249,19 +279,29 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #333333;
 }
-.article .slider_bar .body p:hover {
+.slider_bar .body p:hover {
   color: white;
   background-color: #808595;
 }
-.article .slider_bar .body p.H2 {
+
+.slider_bar .body p[tagName='H1'] {
+
+}
+.slider_bar .body p[tagName='H2'] {
   padding-left: 10px;
 }
-.article .slider_bar .body p.H3 {
+.slider_bar .body p[tagName='H3'] {
   padding-left: 15px;
+
 }
-.article .slider_bar .body p.H4 {
+.slider_bar .body p[tagName='H4'] {
   padding-left: 20px;
+}
+.slider_bar.fixed {
+  position: fixed;
+  top: 80px;
 }
 
 .article_actions {

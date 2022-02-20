@@ -2,27 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b78a0d6d-21ef-4bb4-bc8c-283e04ee630f" name="变更" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/blog.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Django_Lib.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/my/img/favicon.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/views/article.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views/article.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/views/comment.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views/comment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/views/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views/login.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app01/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app01/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app01/templatetags/my_tag.py" beforeDir="false" afterPath="$PROJECT_DIR$/app01/templatetags/my_tag.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/css/article.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/article.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/css/article.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/article.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/base.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/base.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/base.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/index.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/reset.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/reset.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/my/img/footer/c.svg" beforeDir="false" afterPath="$PROJECT_DIR$/static/my/img/footer/c.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/article.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/article.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/backend/backend.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/backend/backend.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,6 +23,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="25JDsmosP8dkKdwn1JmrZ0rxBeh" />
   <component name="ProjectLevelVcsManager">
@@ -82,7 +81,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1645236508992</updated>
-      <workItem from="1645236513503" duration="28887000" />
+      <workItem from="1645236513503" duration="43243000" />
     </task>
     <servers />
   </component>

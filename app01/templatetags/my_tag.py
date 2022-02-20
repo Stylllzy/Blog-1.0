@@ -3,10 +3,18 @@ from django import template
 register = template.Library()
 
 # 自定义过滤器
+# 判断用户是否收藏文章
 @register.filter
-# def add1(item):
-#     return int(item) + 1
+def is_user_collect(article, request):
+    if str(request.user) == 'AnonymousUser':
+        # 没有登录
+        return ''
 
+    if article in request.user.collects.all():
+        return 'sw'
+    return ''
+
+# 轮播图
 @register.inclusion_tag("my_tag/headers.html")
 def banner(menu_name, article=None):
     img_list = [
